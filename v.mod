@@ -1,6 +1,6 @@
 Module {
 	name: 'link'
-	description: ''
+	description: 'Testing Postgres module with V and C'
 	version: '0.0.0'
 	dependencies: ['pg']
 }

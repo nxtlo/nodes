@@ -1,8 +1,32 @@
 // Postgres testings with V
-
 module main
+
 import pg
 import os
+
+#flag -I @VROOT/stdlib
+#flag @VROOT/stdlib/test.c
+#include "wrapper.h"
+
+struct C.Computer {
+	cpu string
+	motherboard string
+	ram int
+	gpu string
+}
+
+fn C.getfunky(int) int
+
+fn ctype() bool {
+
+	mut x := C.Computer{
+		cpu: "Intel"
+		motherboard: "Asus"
+		ram: 16
+		gpu: "Nvidia"
+	}
+	return x.ram != 8
+}
 
 struct Database {
 mut:

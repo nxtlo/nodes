@@ -2,30 +2,44 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include "wrapper.h"
 
-typedef struct Computer {
-    char cpu[10];
-    char motherboard[10];
-    unsigned short int ram;
-    char gpu[50];
-} Computer;
-
-
-static async(char name[]) {
+char func(char type[5]) {
     Computer pc;
-    name = "intel";
+    type = "Intel";
 
-    if(pc.cpu == name) {
+    if(pc.cpu == type) {
+        return false;
+    } else { 
+        return true; 
+    }
+    return 0;
+}
+
+static int getfunky(int head) {
+    for(auto int i = 15; i >= head; i++) {
+        if(sizeof(i) == sizeof(head)) {
             return true;
-        } else {
-            return false;
         }
+        else {
+            printf("Matrixes on stacks -> ");
+        }
+    }
     return 0;
 }
 
 int main() {
-    Computer pc;
-    strcpy(pc.cpu, "intel");
-    printf("CPU is -> %c", async("intel"));
+    do {
+        Computer pc;
+        char cputype[10] = "Intel";
+        if(pc.cpu == cputype) {
+            printf("CPU type returned Garbage, goto -> %c", func("AMD"));
+            continue;
+        } else {
+            printf("Passthorugh -> %i\n", getfunky(15));
+            break;
+        }
+    }
+    while(true);
     return 0;
 }
