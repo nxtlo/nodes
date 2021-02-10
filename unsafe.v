@@ -2,6 +2,7 @@
 
 module main
 
+import sync
 import pg
 import os
 import time
@@ -71,6 +72,7 @@ fn huminaize(h Human) &Human {
 
 fn main() {
 	
+	mut move := sync.new_waitgroup()
 	pool := async(host: 'localhost', port: 5432, user: 'fate', password: 'fate', name: 'fate')
 	db := pg.connect(pg.Config{
 		host: pool.host
@@ -97,6 +99,7 @@ fn main() {
 	
 	coro := huminaize(sex: 'male', race: 'asian', birth: '1965-5-9')
 	if os.exists("./stdlib/tables.sql") {
+		move.add(1)
 			println("Creating tabeles now.")
 			time.sleep(2)
 			schema := unsafe { 
@@ -115,4 +118,5 @@ fn main() {
 			panic(err)
 		}
 	println(query)
+	move.wait()
 }
