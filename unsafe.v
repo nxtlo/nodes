@@ -1,31 +1,32 @@
 // Postgres testings with V
+
 module main
 
 import pg
 import os
+import time
 
 #flag -I @VROOT/stdlib
 #flag @VROOT/stdlib/test.c
 #include "wrapper.h"
 
-struct C.Computer {
-	cpu string
-	motherboard string
-	ram int
-	gpu string
+[typedef]
+struct C.Program {
+	input int
+	compute bool
+	output int
 }
 
 fn C.getfunky(int) int
 
 fn ctype() bool {
 
-	mut x := C.Computer{
-		cpu: "Intel"
-		motherboard: "Asus"
-		ram: 16
-		gpu: "Nvidia"
+	mut x := C.Program{
+		input: 1
+		compute: true
+		output: 0
 	}
-	return x.ram != 8
+	return x.compute != false
 }
 
 struct Database {
@@ -94,17 +95,24 @@ fn main() {
 		println(why)
 	}
 	
-	coro := huminaize(sex: 'stright', race: 'Eastrean', birth: '1998-6-12')
-	db.exec_param_many("INSERT INTO humans(sex, race, birth) VALUES($1, $2, $3)", [coro.sex, coro.race, coro.birth])
+	coro := huminaize(sex: 'male', race: 'asian', birth: '1965-5-9')
+	if os.exists("./stdlib/tables.sql") {
+			println("Creating tabeles now.")
+			time.sleep(2)
+			schema := unsafe { 
+				os.read_file("./stdlib/tables.sql") or {
+					println("sql file was not found.")
+					return
+				}
+			}
+			db.exec(schema)?
+		}
+	db.exec_param_many("INSERT INTO humans(sex, race, birth) VALUES($1, $2, $3)", [coro.sex, coro.race, coro.birth]) or {
+		panic(err)
+	}
 
 	query := db.exec("SELECT * FROM humans") or {
 			panic(err)
 		}
 	println(query)
-
-	unsafe {
-
-		db.close()
-	}
-
 }

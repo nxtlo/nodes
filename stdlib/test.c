@@ -28,7 +28,9 @@ static int getfunky(int head) {
     return 0;
 }
 
-int main() {
+// this shoud be the main function but V don't accept two main funcs though
+// rename to main if you want to use this
+int run() {
     do {
         Computer pc;
         char cputype[10] = "Intel";

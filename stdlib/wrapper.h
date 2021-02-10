@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <stdbool.h>
+#include <string.h>
 
 typedef struct Computer {
     char cpu[10];
@@ -10,6 +10,11 @@ typedef struct Computer {
     char gpu[50];
 } Computer;
 
+typedef struct Program {
+   int input;
+   bool compute;
+   int output;
+} Program;
 
 enum lru {
     maxsize = 128,
