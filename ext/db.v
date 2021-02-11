@@ -16,23 +16,23 @@ pub struct PgConn {
 }
 
 pub struct PgInt {
-	bigint int
-	smallint int
-	integer int
-	serial int
+	bigint string = 'BIGINT'
+	smallint string = 'SMALLINT'
+	integer string = 'INT'
+	serial string = 'SERIAL'
 }
 
 
 pub struct PgString {
-	varchar string
-	text string
+	varchar string = 'VARCHAR'
+	text string = 'TEXT'
 }
 
 
 pub struct PgTime {
-	date string
-	datetime string
-	timestamp string
+	date string = 'DATE'
+	datetime string = 'DATETIME'
+	timestamp string = 'TIMESTAMP'
 }
 
 pub fn(cfg PgConn) ? {
